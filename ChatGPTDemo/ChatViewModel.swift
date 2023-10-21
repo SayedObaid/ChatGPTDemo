@@ -8,30 +8,37 @@
 import Foundation
 import OpenAISwift
 
-// Define a class for managing chat interactions
 final class ChatViewModel: ObservableObject {
-    init () {}
-    
+    @Published var messages: [ChatMessage] = [] // Published property for chat messages
+
     private var openAI: OpenAISwift?
-    
-    // Initialize OpenAI with an API key
-    func setupOpenAI(){
+
+    init() {}
+
+    func setupOpenAI() {
         let config: OpenAISwift.Config = .makeDefaultOpenAI(apiKey: "")
-        openAI = OpenAISwift(config: config)
+        openAI = OpenAISwift(config: config) // Initialize OpenAI
     }
-    
-    // Send a message to OpenAI for completion
-    func sendMessage(message: String, completionHandler: @escaping (String) -> Void){
-        openAI?.sendCompletion(with: message, maxTokens: 500, completionHandler: { result in
+
+    func sendUserMessage(_ message: String) {
+        let userMessage = ChatMessage(message: message, isUser: true)
+        messages.append(userMessage) // Append user message to chat history
+
+        openAI?.sendCompletion(with: message, maxTokens: 500) { [weak self] result in
             switch result {
             case .success(let model):
-                // Extract the response text from the model's choices
-                let response = model.choices?.first?.text ?? ""
-                completionHandler(response)
+                if let response = model.choices?.first?.text {
+                    self?.receiveBotMessage(response) // Handle bot's response
+                }
             case .failure(_):
                 // Handle any errors during message sending
-                break;
+                break
             }
-        })
+        }
+    }
+
+    private func receiveBotMessage(_ message: String) {
+        let botMessage = ChatMessage(message: message, isUser: false)
+        messages.append(botMessage) // Append bot message to chat history
     }
 }

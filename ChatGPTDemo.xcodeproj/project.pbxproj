@@ -13,6 +13,7 @@
 		74DB3ACE2AC05391007C6319 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74DB3ACD2AC05391007C6319 /* Preview Assets.xcassets */; };
 		74DB3AD62AC059A2007C6319 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 74DB3AD52AC059A2007C6319 /* OpenAISwift */; };
 		74DB3AD82AC06C2E007C6319 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB3AD72AC06C2E007C6319 /* ChatViewModel.swift */; };
+		74FDC7772AE3F9D8002F1C76 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FDC7762AE3F9D8002F1C76 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		74DB3ACA2AC05391007C6319 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74DB3ACD2AC05391007C6319 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		74DB3AD72AC06C2E007C6319 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		74FDC7762AE3F9D8002F1C76 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				74DB3AC62AC0538E007C6319 /* ChatGPTDemoApp.swift */,
 				74DB3AC82AC0538E007C6319 /* ContentView.swift */,
 				74DB3AD72AC06C2E007C6319 /* ChatViewModel.swift */,
+				74FDC7762AE3F9D8002F1C76 /* Model.swift */,
 				74DB3ACA2AC05391007C6319 /* Assets.xcassets */,
 				74DB3ACC2AC05391007C6319 /* Preview Content */,
 			);
@@ -151,6 +154,7 @@
 				74DB3AC92AC0538E007C6319 /* ContentView.swift in Sources */,
 				74DB3AD82AC06C2E007C6319 /* ChatViewModel.swift in Sources */,
 				74DB3AC72AC0538E007C6319 /* ChatGPTDemoApp.swift in Sources */,
+				74FDC7772AE3F9D8002F1C76 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

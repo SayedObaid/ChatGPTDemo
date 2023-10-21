@@ -7,70 +7,53 @@
 
 import SwiftUI
 
-// Define a ChatMessage struct with id, message, and isUser properties.
-struct ChatMessage: Identifiable {
-    var id = UUID()
-    var message: String
-    var isUser: Bool
-}
-
 struct ContentView: View {
-    @State private var messages: [ChatMessage] = []    // State to manage chat messages
-    @State private var newMessage = ""                  // State to store user's new message
-    @ObservedObject var viewModel = ChatViewModel()      // View model for chat functionality
+    @ObservedObject var viewModel: ChatViewModel
+    
+    @State private var newMessage = ""
     
     var body: some View {
         VStack {
-            // Display chat messages in a list
-            List(messages) { message in
-                MessageRow(message: message)
-            }
-            .listStyle(.plain)
-            .background(Color.clear)
-            
+            MessagesListView(messages: viewModel.messages) // Display chat messages
             HStack {
-                // Input field for entering a new message
-                TextField("Enter your message", text: $newMessage)
+                TextField("Enter your message", text: $newMessage) // Input field
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                 
-                // Button to send a message
                 Button(action: sendMessage) {
-                    Text("Send")
+                    Text("Send") // Button to send a message
                 }
                 .padding(.trailing)
             }
             .padding(.bottom)
         }
         .onAppear {
-            // Initialize the OpenAI chat service when the view appears
-            viewModel.setupOpenAI()
+            viewModel.setupOpenAI() // Initialize OpenAI when the view appears
         }
     }
     
-    // Function to send a new user message
     func sendMessage() {
         guard !newMessage.isEmpty else { return }
-        let message = ChatMessage(message: newMessage, isUser: true)
-        messages.append(message)
-        newMessage = ""
-        
-        // Call the view model to send the user message to OpenAI
-        viewModel.sendMessage(message: newMessage) { response in
-            showResponse(response: response)
-        }
+        viewModel.sendUserMessage(newMessage) // Send user's message to view model
+        newMessage = "" // Clear the input field
     }
+}
+
+struct MessagesListView: View {
+    var messages: [ChatMessage]
     
-    // Function to display the response from OpenAI
-    func showResponse(response: String) {
-        let response = ChatMessage(message: response, isUser: false)
-        messages.append(response)
+    var body: some View {
+        List(messages) { message in
+            MessageRow(message: message) // Display individual chat messages
+        }
+        .listStyle(.plain)
+        .background(Color.clear)
     }
 }
 
 struct MessageRow: View {
     var message: ChatMessage
-    
+
     var body: some View {
         HStack {
             if message.isUser {
